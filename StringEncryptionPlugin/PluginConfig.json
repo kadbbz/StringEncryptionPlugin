@@ -9,8 +9,8 @@
   "name": "StringEncryptionPlugin",
   "pluginType": "command",
   "guid": "e296cffa-f7d6-4964-8ca5-7dd205769aa5",
-  "version": "1.0.0.0",
-  "dependenceVersion": "8.0.105.0",
+  "version": "1.1.0.0",
+  "dependenceVersion": "8.0.0.0",
   "bundleJavaScript": true,
   "bundleCSS": true
 }
