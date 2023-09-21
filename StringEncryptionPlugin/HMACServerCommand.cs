@@ -16,9 +16,9 @@ namespace StringEncryptionPlugin
     public class HMACServerCommand : BaseEncryptServerCommand, ICommandExecutableInServerSideAsync
     {
         [ComboProperty]
-        [DisplayName("加密等级")]
+        [DisplayName("消息摘要算法")]
         [OrderWeight(101)]
-        public SHAEnum Mode { get; set; }
+        public HMAC_SHAEnum HMAC_Mode { get; set; }
 
         [ComboProperty]
         [DisplayName("输出格式")]
@@ -39,22 +39,22 @@ namespace StringEncryptionPlugin
             var signKey = (await dataContext.EvaluateFormulaAsync(Key)).ToString();
             string output = "";
 
-            switch (Mode)
+            switch (HMAC_Mode)
             {
 
-                case SHAEnum.SHA1:
+                case HMAC_SHAEnum.SHA1:
                     {
                         using (HMACSHA1 mac = new HMACSHA1(getEncoding().GetBytes(signKey)))
                         {
                             byte[] hash = mac.ComputeHash(getEncoding().GetBytes(input));
 
 
-                            output = OutputMode == HMACOutputEnum.Base64? Convert.ToBase64String(hash): toHexString(hash);
+                            output = OutputMode == HMACOutputEnum.Base64 ? Convert.ToBase64String(hash) : toHexString(hash);
                         }
-                        
+
                         break;
                     }
-                case SHAEnum.SHA256:
+                case HMAC_SHAEnum.SHA256:
                     {
                         using (HMACSHA256 mac = new HMACSHA256(getEncoding().GetBytes(signKey)))
                         {
@@ -65,7 +65,7 @@ namespace StringEncryptionPlugin
                         }
                         break;
                     }
-                case SHAEnum.SHA384:
+                case HMAC_SHAEnum.SHA384:
                     {
                         using (HMACSHA384 mac = new HMACSHA384(getEncoding().GetBytes(signKey)))
                         {
@@ -76,7 +76,7 @@ namespace StringEncryptionPlugin
                         }
                         break;
                     }
-                case SHAEnum.SHA512:
+                case HMAC_SHAEnum.SHA512:
                     {
                         using (HMACSHA512 mac = new HMACSHA512(getEncoding().GetBytes(signKey)))
                         {
@@ -85,6 +85,18 @@ namespace StringEncryptionPlugin
 
                             output = OutputMode == HMACOutputEnum.Base64 ? Convert.ToBase64String(hash) : toHexString(hash);
                         }
+                        break;
+                    }
+                default:
+                    {
+                        using (HMACMD5 mac = new HMACMD5(getEncoding().GetBytes(signKey)))
+                        {
+                            byte[] hash = mac.ComputeHash(getEncoding().GetBytes(input));
+
+
+                            output = OutputMode == HMACOutputEnum.Base64 ? Convert.ToBase64String(hash) : toHexString(hash);
+                        }
+
                         break;
                     }
             }
@@ -102,7 +114,7 @@ namespace StringEncryptionPlugin
             }
             else
             {
-                return "HMAC-" + Mode + "加密：" + ResultTo;
+                return "HMAC-" + HMAC_Mode + "加密：" + ResultTo;
             }
 
         }
@@ -111,15 +123,24 @@ namespace StringEncryptionPlugin
         public override CommandScope GetCommandScope()
         {
             return CommandScope.ExecutableInServer;
-        }       
+        }
 
     }
 
 
-    public enum HMACOutputEnum{
-        
+    public enum HMACOutputEnum
+    {
+
         Base64,
         HexString
     }
 
+    public enum HMAC_SHAEnum
+    {
+        MD5,
+        SHA1,
+        SHA256,
+        SHA384,
+        SHA512
+    }
 }
