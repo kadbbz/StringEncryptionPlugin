@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net472</TargetFramework>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
@@ -10,6 +10,7 @@
 		<Resource Include="Resources\Icon.png" />
 	</ItemGroup>
 	<ItemGroup>
+		<PackageReference Include="BouncyCastle.Cryptography" Version="2.2.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0">
 			<ExcludeAssets>runtime</ExcludeAssets>
 		</PackageReference>
@@ -50,11 +51,19 @@
 			<HintPath>C:\Program Files\Forguncy 8\Website\bin\Newtonsoft.Json.dll</HintPath>
 		    <Private>False</Private>
 		</Reference>
-		<Reference Include="System.ComponentModel.DataAnnotations" >
+		<Reference Include="System.ComponentModel.DataAnnotations">
 			<Private>False</Private>
 		</Reference>
 	</ItemGroup>
+	<ItemGroup>
+	  <None Update="Resources\base64.js">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Resources\SEP.js">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="&quot;E:\CODE\ForguncyPluginBuilder\bin\ForguncyPluginPackageTool.exe&quot; $(ProjectDir) &quot;C:\Program Files\Forguncy 8&quot; " />
+		<Exec Command="&quot;E:\CODE\ForguncyPluginBuilder_8.0\bin\ForguncyPluginPackageTool.exe&quot; $(ProjectDir) &quot;C:\Program Files\Forguncy 8&quot; " />
 	</Target>
 </Project>

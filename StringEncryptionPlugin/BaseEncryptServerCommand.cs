@@ -9,17 +9,12 @@ using System.Threading.Tasks;
 
 namespace StringEncryptionPlugin
 {
-    public class BaseEncryptServerCommand: Command
+    public abstract class BaseEncryptServerCommand: Command
     {
         [FormulaProperty]
         [DisplayName("原始字符串")]
         [OrderWeight(100)]
         public object InputString { get; set; }
-
-        //[ComboProperty]
-        //[DisplayName("编码")]
-        //[OrderWeight(10)]
-        //public EncodingEnum Encoding { get; set; } = EncodingEnum.UTF8;
 
         [ResultToProperty]
         [DisplayName("将结果返回到变量")]
@@ -79,6 +74,11 @@ namespace StringEncryptionPlugin
                 return input.PadRight(length);
             }
         }
+
+        public override CommandScope GetCommandScope()
+        {
+            return CommandScope.ExecutableInServer;
+        }
     }
 
     public enum EncodingEnum
@@ -88,4 +88,5 @@ namespace StringEncryptionPlugin
         UTF8,
         Default
     }
+
 }
