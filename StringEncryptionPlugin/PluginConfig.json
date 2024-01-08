@@ -5,11 +5,11 @@
   "css": [],
   "javascript": [ "Resources/SEP.js", "Resources/base64.js" ],
   "image": "Resources/PluginLogo.png",
-  "description": "提供字符串加密和解密功能，对称加密支持Base64、AES、DES、TripleDES，非对称加密支持MD5、SHA1、SHA256、SHA384、SHA512、SHA1/256/384/512WithRSA、HMAC（密钥散列消息认证码）等，通常用于系统集成。",
+  "description": "提供字符串加密和解密功能，对称加密支持Base64、AES、DES、TripleDES，非对称加密支持MD5、SHA1、SHA256、SHA384、SHA512、HMAC（密钥散列消息认证码）等，通常用于系统集成。",
   "name": "StringEncryptionPlugin",
   "pluginType": "command",
   "guid": "e296cffa-f7d6-4964-8ca5-7dd205769aa5",
-  "version": "1.4.0.0",
+  "version": "1.4.0.1",
   "dependenceVersion": "8.0.0.0",
   "bundleJavaScript": true,
   "bundleCSS": true

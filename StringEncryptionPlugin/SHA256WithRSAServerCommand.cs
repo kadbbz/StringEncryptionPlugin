@@ -15,7 +15,7 @@ namespace StringEncryptionPlugin
     [Icon("pack://application:,,,/StringEncryptionPlugin;component/Resources/Icon.png")]
     [Category("字符串加解密")]
     [OrderWeight(100)]
-    public class SHA256WithRSAServerCommand : BaseEncryptServerCommand, ICommandExecutableInServerSideAsync
+    public abstract class SHA256WithRSAServerCommand : BaseEncryptServerCommand, ICommandExecutableInServerSideAsync
     {
         [ComboProperty]
         [DisplayName("哈希算法")]
