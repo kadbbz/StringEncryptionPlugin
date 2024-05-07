@@ -5,6 +5,7 @@
 		<LangVersion>8</LangVersion>
 		<OutputPath>bin\</OutputPath>
 		<UseWPF>true</UseWPF>
+		<_FunctionsSkipCleanOutput>true</_FunctionsSkipCleanOutput>
 	</PropertyGroup>
 	<ItemGroup>
 		<Resource Include="Resources\Icon.png" />
@@ -17,6 +18,7 @@
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0">
 			<ExcludeAssets>runtime</ExcludeAssets>
 		</PackageReference>
+		<PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.1" />
 	</ItemGroup>
 	<ItemGroup>
 		<Reference Include="Forguncy.Commands" Exclude="runtime">

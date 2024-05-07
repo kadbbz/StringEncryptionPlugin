@@ -9,29 +9,24 @@ namespace StringEncryptionPlugin
 {
     [Icon("pack://application:,,,/StringEncryptionPlugin;component/Resources/Icon.png")]
     [Category("字符串加解密")]
-    [OrderWeight(200)]
-    public class Base64ServerCommand : BaseEncryptServerCommand, ICommandExecutableInServerSideAsync
+    [OrderWeight(900)]
+    public class EncodingConvertServerCommand : BaseEncryptServerCommand, ICommandExecutableInServerSideAsync
     {
         [ComboProperty]
-        [DisplayName("操作方向")]
-        [OrderWeight(1)]
-        public OperationEnum Operation { get; set; } = OperationEnum.Encrypt;
+        [DisplayName("输入内容的编码格式")]
+        [OrderWeight(100)]
+        public EncodingFormatEnum InputFormat { get; set; } 
+
+        [ComboProperty]
+        [DisplayName("输出内容的编码格式")]
+        [OrderWeight(110)]
+        public EncodingFormatEnum OutputFormat { get; set; }
 
         public async Task<ExecuteResult> ExecuteAsync(IServerCommandExecuteContext dataContext)
         {
             var input = (await dataContext.EvaluateFormulaAsync(InputString)).ToString();
 
-            string output;
-            if (Operation == OperationEnum.Encrypt)
-            {
-                output = Convert.ToBase64String(Encoding.UTF8.GetBytes(input));
-            }
-            else
-            {
-                var raw = Convert.FromBase64String(input);
-
-                output = Encoding.UTF8.GetString(raw);
-            }
+            string output = encodeOutput(decodeInput(input, InputFormat), OutputFormat);
 
             dataContext.Parameters[ResultTo] = output;
 
@@ -42,11 +37,11 @@ namespace StringEncryptionPlugin
         {
             if (null == InputString)
             {
-                return "BASE64加解密";
+                return "字符编码转换";
             }
             else
             {
-                return "BASE64" + ((Operation == OperationEnum.Encrypt) ? "加" : "解") + "密：" + ResultTo;
+                return "字符编码转换（" + InputFormat + "->" + OutputFormat + "）：" + ResultTo;
             }
 
         }
